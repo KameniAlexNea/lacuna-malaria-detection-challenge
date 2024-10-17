@@ -22,3 +22,6 @@ faster-coco-eval
 datasets
 wandb
 scikit-learn
+
+lightning
+gdown
