@@ -31,7 +31,7 @@ from zindi_code.metrics import compute_metrics
 
 # from zindi_code.hf_alex.model import DetrForObjectDetection
 
-train_set = load_dataset(TRAIN_CSV, nan_frac=0.).with_transform(transform_aug_ann)
+train_set = load_dataset(TRAIN_CSV, nan_frac=0).with_transform(transform_aug_ann)
 eval_set = load_dataset(VAL_CSV, False).with_transform(
     lambda x: transform_aug_ann(x, True)
 )
