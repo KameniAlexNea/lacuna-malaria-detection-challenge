@@ -167,3 +167,4 @@ zindi_data
 wandb
 data
 lightning_logs
+temp_files
