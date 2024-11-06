@@ -15,10 +15,12 @@ pycocotools
 timm
 accelerate
 
-opencv-python==4.8.0.74
-onnxruntime
+opencv-python
 faster-coco-eval
 
 datasets
 wandb
 scikit-learn
+
+lightning
+gdown

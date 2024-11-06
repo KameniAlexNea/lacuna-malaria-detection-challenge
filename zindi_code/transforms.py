@@ -16,7 +16,7 @@ TRAIN_TRANSFORM = A.Compose(
         A.RandomBrightnessContrast(p=0.3),
     ],
     bbox_params=A.BboxParams(
-        format="coco", label_fields=["category"], min_visibility=0.3
+        format="coco", label_fields=["category"], min_visibility=0.3, clip=True
     ),
 )
 

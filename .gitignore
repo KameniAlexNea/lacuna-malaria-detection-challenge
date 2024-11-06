@@ -165,3 +165,6 @@ logs
 zindi_data
 *.out
 wandb
+data
+lightning_logs
+temp_files
