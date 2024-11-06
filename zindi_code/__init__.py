@@ -7,7 +7,7 @@ VAL_CSV = os.path.join(DATA_FOLDER, "TestDataset.csv")
 IMAGE_FOLDER = os.path.join(DATA_FOLDER, "images/")
 
 
-MODEL_NAME = "logs/cond-detr-50/checkpoint-1740" # "zongzhuofan/co-detr-vit-large-coco" # "microsoft/conditional-detr-resnet-50"  # hustvl/yolos-small "jozhang97/deta-resnet-50-24-epochs" "hustvl/yolos-base" # "jozhang97/deta-resnet-50" # "facebook/detr-resnet-50"
+MODEL_NAME = "logs/cond-detr-50/finetuned/checkpoint-1392" # "zongzhuofan/co-detr-vit-large-coco" # "microsoft/conditional-detr-resnet-50"  # hustvl/yolos-small "jozhang97/deta-resnet-50-24-epochs" "hustvl/yolos-base" # "jozhang97/deta-resnet-50" # "facebook/detr-resnet-50"
 
 NMS_THR = 0.8
 CLS_THR = 0.25
