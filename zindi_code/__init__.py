@@ -14,3 +14,9 @@ CLS_THR = 0.25
 
 CLS_MAPPER = {"Trophozoite": 0, "WBC": 1}
 NUM_CLASS = len(CLS_MAPPER)
+
+CLASSES_REVERSE = {"0": "Trophozoite", "1": "WBC"}
+COLOR_PALETTE = {"0": (255, 0, 0), "1": (0, 255, 0)}
+
+RESIZE_TO_W = 800
+RESIZE_TO_H = 800
