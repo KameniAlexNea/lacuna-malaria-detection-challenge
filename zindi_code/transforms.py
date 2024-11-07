@@ -32,6 +32,6 @@ EVAL_TRANSFORM = A.Compose(
 )
 
 IMAGE_PROCESSOR: DetrImageProcessor = AutoImageProcessor.from_pretrained(
-    MODEL_NAME,  # if (MODEL_NAME != "nielsr/yolov10n") else "hustvl/yolos-small",
+    MODEL_NAME, use_fast=True  # if (MODEL_NAME != "nielsr/yolov10n") else "hustvl/yolos-small",
     # revision="no_timm", use_fast=True
 )
