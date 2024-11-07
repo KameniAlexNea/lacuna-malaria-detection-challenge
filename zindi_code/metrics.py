@@ -11,7 +11,7 @@ def nms_index(bboxes, scores, thr=0.6):
     return nms(bboxes, scores, thr)
 
 # https://discuss.huggingface.co/t/possible-fix-for-trainer-evaluation-with-object-detection/72307
-# .venv/lib/python3.9/site-packages/transformers/trainer_pt_utils.py:112
+# .venv/lib/python3.11/site-packages/transformers/trainer_pt_utils.py:112
 def compute_metrics(eval_pred: EvalPrediction):
     """
     Compute detection metrics

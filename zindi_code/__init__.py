@@ -7,7 +7,7 @@ VAL_CSV = os.path.join(DATA_FOLDER, "TestDataset.csv")
 IMAGE_FOLDER = os.path.join(DATA_FOLDER, "images/")
 
 
-MODEL_NAME = "logs/cond-detr-50/checkpoint-1740" # "zongzhuofan/co-detr-vit-large-coco" # "microsoft/conditional-detr-resnet-50"  # hustvl/yolos-small "jozhang97/deta-resnet-50-24-epochs" "hustvl/yolos-base" # "jozhang97/deta-resnet-50" # "facebook/detr-resnet-50"
+MODEL_NAME = "facebook/detr-resnet-101" # "zongzhuofan/co-detr-vit-large-coco" # "microsoft/conditional-detr-resnet-50"  # hustvl/yolos-small "jozhang97/deta-resnet-50-24-epochs" "hustvl/yolos-base" # "jozhang97/deta-resnet-50" # "facebook/detr-resnet-50"
 
 NMS_THR = 0.8
 CLS_THR = 0.25
@@ -21,3 +21,6 @@ COLOR_PALETTE = {"0": (255, 0, 0), "1": (0, 255, 0)}
 
 RESIZE_TO_W = 800
 RESIZE_TO_H = 800
+
+W = 1333
+H = 800

@@ -1,6 +1,6 @@
 nohup python train_hf.py \
     --output_dir logs \
-    --run_name cond-detr-50 \
+    --run_name cond-detr-101 \
     --auto_find_batch_size \
     --per_device_train_batch_size 16 \
     --per_device_eval_batch_size 16 \

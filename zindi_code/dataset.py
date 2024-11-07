@@ -19,8 +19,10 @@ def _check_nan(category_id):
     # category_id of NEG is len(CLS_MAPPER) => avoid it
     return category_id != len(CLS_MAPPER)
 
+
 def _check_df_nan(train):
     return train["category_id"] == len(CLS_MAPPER)
+
 
 def dropna_from_df(data: pd.DataFrame, frac: bool = 1.0):
     na_checker = _check_df_nan(data)
@@ -71,7 +73,7 @@ def _create_bbox_data(bbox, category, id):
         "id": id,
         "area": bbox[2] * bbox[3],
         "bbox": bbox,
-        "category": category, # convert 1,2,3 => 0,1,2
+        "category": category,  # convert 1,2,3 => 0,1,2
     }
 
 
@@ -119,17 +121,25 @@ def load_dataset(data_pth=TRAIN_CSV, training: bool = True, nan_frac: bool = 0.0
 
 
 def _formatted_anns(image_id, category, area, bbox):
+    # if len(category) != len(area) or len(category) != len(bbox):
+    #     m_size = min(len(category), len(area), len(bbox))
+    #     category, area, bbox = category[:m_size], area[:m_size], bbox[:m_size]
     annotations = [
         {
             "image_id": image_id,
-            "category_id": category[i],
+            "category_id": cat_,
             "isCrowd": 0,
-            "area": area[i],
-            "bbox": bbox[i],
-        } for i in range(0, len(category))
+            "area": ar_,
+            "bbox": bb_,
+        }
+        for cat_, ar_, bb_ in zip(category, area, bbox)
     ]
     return annotations
 
+def compute_area(bboxes):
+    return [
+        box[2] * box[3] for box in bboxes
+    ]
 
 # transforming a batch
 def transform_aug_ann(examples, is_test=False):
