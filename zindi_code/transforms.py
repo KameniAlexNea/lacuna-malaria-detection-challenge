@@ -7,13 +7,13 @@ IMAGE_SHAPE = 1333
 TRAIN_TRANSFORM = A.Compose(
     [
         # A.LongestMaxSize(max_size=IMAGE_SHAPE, p=1),
-        A.RandomCrop(H, W, pad_if_needed =True, p=0.1),
+        A.RandomCrop(H, W, pad_if_needed=True, p=0.1),
         A.RandomScale(0.2, p=0.4),
         A.Rotate(limit=179, p=0.3),
         # A.RandomRotate90(0.5),
-        # A.Blur(blur_limit=3, p=0.2),
+        A.Blur(blur_limit=3, p=0.2),
         A.GaussNoise(var_limit=(0.002, 0.01), p=0.2),
-        A.ColorJitter(brightness=0.3, contrast=0.3, saturation=0.2),
+        A.ColorJitter(brightness=0.3, contrast=0.3, saturation=0.1),
         # A.RandomBrightnessContrast(p=0.3),
     ],
     bbox_params=A.BboxParams(
@@ -31,7 +31,13 @@ EVAL_TRANSFORM = A.Compose(
     ),
 )
 
+# if (MODEL_NAME != "nielsr/yolov10n") else "hustvl/yolos-small",
+# revision="no_timm", use_fast=True
 IMAGE_PROCESSOR: DetrImageProcessor = AutoImageProcessor.from_pretrained(
-    MODEL_NAME, use_fast=True  # if (MODEL_NAME != "nielsr/yolov10n") else "hustvl/yolos-small",
-    # revision="no_timm", use_fast=True
+    MODEL_NAME,
+    use_fast=False,
+    do_resize=True,
+    do_pad=True,
+    size={"max_height": H, "max_width": W},
+    pad_size={"height": H, "width": W},
 )

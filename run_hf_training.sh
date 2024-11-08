@@ -7,7 +7,8 @@ nohup python train_hf.py \
     --num_train_epochs 200 \
     --do_eval \
     --do_train \
-    --fp16 \
+    --fp16 false \
+    --bf16 \
     --learning_rate 5e-5 \
     --weight_decay 1e-4 \
     --save_total_limit 3 \
@@ -22,9 +23,12 @@ nohup python train_hf.py \
     --data_seed 41 \
     --save_safetensors \
     --save_only_model \
-    --metric_for_best_model map_50 \
+    --metric_for_best_model eval_map \
+    --greater_is_better true \
+    --logging_steps 100 \
+    --eval_do_concat_batches false \
     --load_best_model_at_end \
     --overwrite_output_dir \
-    --dataloader_num_workers 8 \
+    --dataloader_num_workers 4 \
     --gradient_accumulation_steps 2 \
     &> nohup.out &
