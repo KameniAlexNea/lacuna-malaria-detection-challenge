@@ -9,6 +9,7 @@ from zindi_code import CLASSES_REVERSE
 
 from transformers.image_transforms import center_to_corners_format
 
+
 def convert_bbox_yolo_to_pascal(boxes, image_size):
     """
     Convert bounding boxes from YOLO format (x_center, y_center, width, height) in range [0, 1]
@@ -38,7 +39,9 @@ class ModelOutput:
 
 
 @torch.no_grad()
-def compute_metrics(evaluation_results, image_processor, threshold=0.0, id2label: dict=None):
+def compute_metrics(
+    evaluation_results, image_processor, threshold=0.0, id2label: dict = None
+):
     """
     Compute mean average mAP, mAR and their variants for the object detection task.
 
@@ -71,7 +74,9 @@ def compute_metrics(evaluation_results, image_processor, threshold=0.0, id2label
         # here we will convert them to Pascal VOC format (x_min, y_min, x_max, y_max)
         for image_target in batch:
             boxes = torch.tensor(image_target["boxes"])
-            boxes = convert_bbox_yolo_to_pascal(boxes, image_target["orig_size"]) # => already in coco
+            boxes = convert_bbox_yolo_to_pascal(
+                boxes, image_target["orig_size"]
+            )  # => already in coco
             labels = torch.tensor(image_target["class_labels"])
             post_processed_targets.append({"boxes": boxes, "labels": labels})
 
@@ -79,7 +84,9 @@ def compute_metrics(evaluation_results, image_processor, threshold=0.0, id2label
     # model produce boxes in YOLO format, then image_processor convert them to Pascal VOC format
     for batch, target_sizes in zip(predictions, image_sizes):
         batch_logits, batch_boxes = batch[1], batch[2]
-        output = ModelOutput(logits=torch.tensor(batch_logits), pred_boxes=torch.tensor(batch_boxes))
+        output = ModelOutput(
+            logits=torch.tensor(batch_logits), pred_boxes=torch.tensor(batch_boxes)
+        )
         post_processed_output = image_processor.post_process_object_detection(
             output, threshold=threshold, target_sizes=target_sizes
         )
@@ -94,8 +101,12 @@ def compute_metrics(evaluation_results, image_processor, threshold=0.0, id2label
     classes = metrics.pop("classes")
     map_per_class = metrics.pop("map_per_class")
     mar_100_per_class = metrics.pop("mar_100_per_class")
-    for class_id, class_map, class_mar in zip(classes, map_per_class, mar_100_per_class):
-        class_name = id2label[class_id.item()] if id2label is not None else class_id.item()
+    for class_id, class_map, class_mar in zip(
+        classes, map_per_class, mar_100_per_class
+    ):
+        class_name = (
+            id2label[class_id.item()] if id2label is not None else class_id.item()
+        )
         metrics[f"map_{class_name}"] = class_map
         metrics[f"mar_100_{class_name}"] = class_mar
 
@@ -104,6 +115,8 @@ def compute_metrics(evaluation_results, image_processor, threshold=0.0, id2label
     return metrics
 
 
+id2label = CLASSES_REVERSE.copy()
+id2label[len(CLASSES_REVERSE)] = "MASK"
 eval_compute_metrics_fn = partial(
-    compute_metrics, image_processor=IMAGE_PROCESSOR, id2label=CLASSES_REVERSE, threshold=0.0
+    compute_metrics, image_processor=IMAGE_PROCESSOR, id2label=id2label, threshold=0.0
 )

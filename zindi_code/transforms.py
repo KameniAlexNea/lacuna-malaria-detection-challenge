@@ -13,7 +13,7 @@ TRAIN_TRANSFORM = A.Compose(
         # A.RandomRotate90(0.5),
         A.Blur(blur_limit=3, p=0.2),
         A.GaussNoise(var_limit=(0.002, 0.01), p=0.2),
-        A.ColorJitter(brightness=0.3, contrast=0.3, saturation=0.1),
+        # A.ColorJitter(brightness=0.3, contrast=0.3, saturation=0.1),
         # A.RandomBrightnessContrast(p=0.3),
     ],
     bbox_params=A.BboxParams(

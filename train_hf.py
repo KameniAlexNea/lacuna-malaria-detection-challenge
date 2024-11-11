@@ -41,7 +41,8 @@ print(examples)
 
 print("Start Training : ", os.getpid(), MODEL_NAME)
 
-label2id = CLS_MAPPER
+label2id = CLS_MAPPER.copy()
+label2id["MASK"] = len(CLS_MAPPER)
 id2label = {j: i for i, j in label2id.items()}
 model: ConditionalDetrForObjectDetection = AutoModelForObjectDetection.from_pretrained(
     MODEL_NAME,
