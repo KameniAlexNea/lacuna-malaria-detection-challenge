@@ -7,7 +7,7 @@ from datasets import Dataset
 from PIL import Image
 from sklearn.preprocessing import LabelEncoder
 
-from zindi_code import IMAGE_FOLDER, TRAIN_CSV, CLS_MAPPER
+from zindi_code import CLS_MAPPER, IMAGE_FOLDER, TRAIN_CSV
 
 
 def _check_nan(category_id):

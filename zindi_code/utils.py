@@ -2,16 +2,13 @@ import errno
 import os
 import random
 
+import albumentations as A
 import matplotlib.pyplot as plt
 import torch
 import torchvision
+from albumentations.pytorch import ToTensorV2
 from torchvision.transforms.functional import pil_to_tensor, to_pil_image
 from torchvision.utils import draw_bounding_boxes
-
-import random
-
-import albumentations as A
-from albumentations.pytorch import ToTensorV2
 
 
 # define the training transforms

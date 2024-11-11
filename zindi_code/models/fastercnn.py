@@ -4,9 +4,11 @@ from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from torchvision.models.detection.rpn import AnchorGenerator
 
 
-def create_model(num_classes, model_path=None, pretrained=True, model_version=2, anchor_reduction=1):
+def create_model(
+    num_classes, model_path=None, pretrained=True, model_version=2, anchor_reduction=1
+):
     loading_local_weights = isinstance(model_path, str)
-    
+
     if loading_local_weights:
         checkpoint = torch.load(model_path)["model"]
         args = torch.load(model_path)["args"]
@@ -18,19 +20,23 @@ def create_model(num_classes, model_path=None, pretrained=True, model_version=2,
                 model_version = 1
             else:
                 model_version = 2
-        
+
     print("Model version: ", model_version)
     # load Faster RCNN pre-trained model
     if model_version == 1:
         model = torchvision.models.detection.fasterrcnn_resnet50_fpn(
-            weights=None if (loading_local_weights or not pretrained) else torchvision.models.detection.faster_rcnn.FasterRCNN_ResNet50_FPN_Weights.DEFAULT
+            weights=(
+                None
+                if (loading_local_weights or not pretrained)
+                else torchvision.models.detection.faster_rcnn.FasterRCNN_ResNet50_FPN_Weights.DEFAULT
+            )
         )
     else:
         # load Faster RCNN V2
         model = torchvision.models.detection.fasterrcnn_resnet50_fpn_v2(
             pretrained=(not loading_local_weights and pretrained)
         )
-        
+
     model.transform = torchvision.models.detection.transform.GeneralizedRCNNTransform(
         min_size=800,
         max_size=1333,
@@ -44,16 +50,24 @@ def create_model(num_classes, model_path=None, pretrained=True, model_version=2,
 
     if anchor_reduction > 1:
         anchor_generator = AnchorGenerator(
-            sizes=((32//anchor_reduction,), (64//anchor_reduction,), (128//anchor_reduction,), (256//anchor_reduction,), (512//anchor_reduction,)),  # Tailles d'ancres plus petites que celles par défaut (32, 64, 128, ...)
-            aspect_ratios=((0.5, 1.0, 2.0),)*5,  # Ratios des ancres (peut être ajusté si nécessaire)
+            sizes=(
+                (32 // anchor_reduction,),
+                (64 // anchor_reduction,),
+                (128 // anchor_reduction,),
+                (256 // anchor_reduction,),
+                (512 // anchor_reduction,),
+            ),  # Tailles d'ancres plus petites que celles par défaut (32, 64, 128, ...)
+            aspect_ratios=((0.5, 1.0, 2.0),)
+            * 5,  # Ratios des ancres (peut être ajusté si nécessaire)
         )
         model.rpn.anchor_generator = anchor_generator
-        
+
     if model_path is not None:
         checkpoint = torch.load(model_path)["model"]
         model.load_state_dict(checkpoint)
 
     return model
+
 
 if __name__ == "__main__":
     model = create_model(4)

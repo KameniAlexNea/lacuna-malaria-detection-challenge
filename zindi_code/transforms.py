@@ -1,7 +1,7 @@
 import albumentations as A
 from transformers import AutoImageProcessor, DetrImageProcessor
 
-from zindi_code import MODEL_NAME, W, H
+from zindi_code import MODEL_NAME, H, W
 
 IMAGE_SHAPE = 1333
 TRAIN_TRANSFORM = A.Compose(

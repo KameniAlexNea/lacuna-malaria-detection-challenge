@@ -1,22 +1,20 @@
 import argparse
+import csv
 import datetime
 import glob as glob
 import json
 import os
-import csv
+import random
+
 import numpy as np
 import torch
 
 import zindi_code.utils as utils
-from zindi_code.eval_utils import (
-    evaluate_with_torchmetrics,
-    readable_map_dict,
-    readable_mar_dict,
-)
 from zindi_code import CLASSES_REVERSE, NUM_CLASS, RESIZE_TO_W
 from zindi_code.dataset_class import get_dataloader
+from zindi_code.eval_utils import (evaluate_with_torchmetrics,
+                                   readable_map_dict, readable_mar_dict)
 from zindi_code.models.fastercnn import create_model
-import random
 
 torch.manual_seed(24)
 random.seed(24)

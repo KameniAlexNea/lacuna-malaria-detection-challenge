@@ -1,22 +1,19 @@
-import json
-import os
+from functools import partial
 
 import numpy as np
-import pandas as pd
-from datasets import Dataset
-from PIL import Image
-from sklearn.preprocessing import LabelEncoder
-
-from zindi_code.transforms import (
-    EVAL_TRANSFORM,
-    IMAGE_PROCESSOR,
-    TRAIN_TRANSFORM,
-)
-from functools import partial
 import torch
+from datasets import Dataset
+
+from zindi_code.transforms import (EVAL_TRANSFORM, IMAGE_PROCESSOR,
+                                   TRAIN_TRANSFORM)
+
+
+def compute_area(bboxes: list[list[float]]):
+    return [box[2] * box[3] for box in bboxes]
 
 
 def format_image_annotations_as_coco(image_id, categories, areas, bboxes):
+    # areas = _compute_area(bboxes)
     annotations = [
         {
             "image_id": image_id,
@@ -66,9 +63,6 @@ def augment_and_transform_batch(
 
     return result
 
-
-def compute_area(bboxes):
-    return [box[2] * box[3] for box in bboxes]
 
 
 train_augmentation = partial(

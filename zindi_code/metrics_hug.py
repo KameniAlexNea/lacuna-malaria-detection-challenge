@@ -1,13 +1,13 @@
-import torch
-import numpy as np
 from dataclasses import dataclass
-from torchmetrics.detection.mean_ap import MeanAveragePrecision
 from functools import partial
-from zindi_code.transforms import IMAGE_PROCESSOR
-from zindi_code import CLASSES_REVERSE
 
-
+import numpy as np
+import torch
+from torchmetrics.detection.mean_ap import MeanAveragePrecision
 from transformers.image_transforms import center_to_corners_format
+
+from zindi_code import CLASSES_REVERSE
+from zindi_code.transforms import IMAGE_PROCESSOR
 
 
 def convert_bbox_yolo_to_pascal(boxes, image_size):

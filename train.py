@@ -20,7 +20,7 @@ from zindi_code.eval_utils import readable_map_dict, readable_mar_dict
 from zindi_code import CLS_MAPPER, CLASSES_REVERSE, COLOR_PALETTE, NUM_CLASS
 
 from zindi_code.dataset_class import get_dataloader
-from zindi_code.eval import evaluate_all_metrics
+from zindi_code.eval_torch import evaluate_all_metrics
 from zindi_code.models.fastercnn import create_model
 
 torch.manual_seed(24)
