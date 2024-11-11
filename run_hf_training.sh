@@ -7,9 +7,7 @@ nohup python train_hf.py \
     --num_train_epochs 200 \
     --do_eval \
     --do_train \
-    --fp16 false \
-    --bf16 \
-    --learning_rate 5e-5 \
+    --learning_rate 8e-5 \
     --weight_decay 1e-4 \
     --save_total_limit 3 \
     --remove_unused_columns false \
@@ -29,6 +27,6 @@ nohup python train_hf.py \
     --eval_do_concat_batches false \
     --load_best_model_at_end \
     --overwrite_output_dir \
-    --dataloader_num_workers 4 \
+    --dataloader_num_workers 8 \
     --gradient_accumulation_steps 2 \
     &> nohup.out &
